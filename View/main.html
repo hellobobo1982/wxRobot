@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.css">
+    <script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.js"></script>
+    <script src="js/jquery_mobile_145.js"></script>
+    <script src="js/fun.js"></script>
+    <script src ="js/mobileCheck.js"></script>
+    <script src="js/err.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+    <script src="js/guide.js"></script>
+    <style>
+        .ui-icon-myicon {
+            background-image: url("img/jd.png");  /**你的图片，路径是相对于当前使用文件可以访问到的*/
+            background-size: 32px 32px;
+            background-repeat: no-repeat;
+            background-position:center;
+        }
+        .ui-block-a, .ui-block-b, .ui-block-c {
+            text-align: center;
+
+        }
+        #benifit_style {
+            background-color: lightgray;
+            font-weight: bold;
+            text-align: center;
+        }
+        #orderlist,.tips{
+            font-size: small;
+        }
+        tr {
+            border-bottom: 1px solid #d6d6d6;
+        }
+
+    </style>
+    <title>欢迎</title>
+</head>
+<body>
+
+<div data-role="page" id="login">
+    <div data-role="header" data-position="fixed">
+        <h1>孙大爷™</h1>
+    </div>
+    <img src="img/bglogin.png" width="50%"/><span>快登！大爷看着呢</span>
+    <div data-role="content">
+        <form id="loginform">
+            <div>
+                <h3>登陆</h3>
+                <label for="log_username" class="ui-hidden-accessible">用户名:</label>
+                <input type="text" name="username" id="log_username" placeholder="用户名" data-clear-btn="true">
+                <label for="log_password" class="ui-hidden-accessible">密码:</label>
+                <input type="password" name="password" id="log_password" placeholder="密码">
+                <input type="hidden" name="c" value="my">
+                <input type="hidden" name="a" value="login">
+                <p></p><p></p><p></p><p></p><p></p><p></p>
+                <input type="submit" value="登录！" id="loginButton" data-theme="b">
+                <p></p><p></p>
+                <a href="#register" style="text-decoration: none;font-weight: lighter" id="goRegosterBtn" >注册</a>
+            </div>
+        </form>
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h1 class = ui-icon-myicon></h1>
+    </div>
+
+</div>
+
+<div data-role="page" id="register">
+    <div data-role="header" data-position="fixed">
+        <h1>孙大爷™</h1>
+    </div>
+    <img src="img/bgreg.png" width="100%"/>
+    <div data-role="content">
+        <form id="registerform">
+            <div>
+                <h3>注册</h3>
+                <label for="reg_username" class="ui-hidden-accessible">用户名:</label>
+                <input type="text" name="username" id="reg_username" placeholder="请使用手机号注册" data-clear-btn="true">
+                <label for="reg_password" class="ui-hidden-accessible">密码:</label>
+                <input type="password" name="password" id="reg_password" placeholder="密码">
+                <label for="reference" class="ui-hidden-accessible">推荐人:</label>
+                <input type="hidden" name="reference" id="reference" value="0">
+                <input type="hidden" name="c" value="my">
+                <input type="hidden" name="a" value="register">
+                <p></p><p></p><p></p><p></p><p></p><p></p>
+                <input type="submit" value="注册！ 从此做一个俗人，贪财好色" id="registerButton" data-theme="b">
+                <p></p><p></p>
+                <a href="#login" style="text-decoration: none;font-weight: lighter">返回登陆</a>
+            </div>
+        </form>
+
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h1 class = ui-icon-myicon></h1>
+    </div>
+
+</div>
+
+<div data-role="page" id="wxmng">
+    <div data-role="header" data-position="fixed">
+        <h1>运行</h1>
+        <a href="#forum" class="ui-btn ui-btn-left ui-icon-home ui-btn-icon-left">进群</a>
+        <a href="#myPopup" onclick="loadQcoder()" data-rel="popup" data-position-to="window" data-transition="slideup" class="ui-btn ui-btn-right ui-icon-plus ui-btn-icon-left">添加</a>
+    </div>
+    <div data-role="content">
+        <div data-role="popup" id="myPopup"  data-dismissible="false"><!--<img src="c:\1.png">-->
+        </div>
+        <ul data-role="listview" data-inset="true" id="wxlist">
+        </ul>
+
+
+    </div>
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+        <div data-role="navbar">
+            <ul>
+                <li id="wxmenu"><a href="#wxmng" data-icon="star" data-ajax="false">运行</a></li>
+                <li><a href="#setting" data-icon="gear" data-ajax="false">设置</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div data-role="page" id="grouppage">
+    <div data-role="header" data-position="fixed">
+        <a href="main.html#wxmng" class="ui-btn" data-ajax="false">返回</a>
+        <a href="#" id="refresh" class="ui-btn ui-btn-right ui-corner-all ui-shadow ui-icon-refresh ui-btn-icon-left">刷新</a>
+        <h1>群列表</h1>
+    </div>
+    <div data-role="content">
+        <ul id="grouplist" data-role="listview" data-inset="true">
+        </ul>
+        <input type="hidden" name="wxid" id="wxid" value="" />
+        <div data-role="popup" id="myPopup1" class="ui-content">
+            <fieldset data-role="controlgroup">
+                <legend>请选择监控群 / 目的群：</legend>
+                <label for="nowhere">不选择</label>
+                <input type="radio" name="group" id="nowhere" value="-1">
+                <label for="from">监控群</label>
+                <input type="radio" name="group" id="from" value="0">
+                <label for="to">目的群</label>
+                <input type="radio" name="group" id="to" value="1">
+                <input type="hidden" name="id" id="groupid" value="" />
+            </fieldset>
+            <a href="#" id="btn" class="ui-btn ui-btn-inline ui-btn-a" data-rel="back">确定</a>
+        </div>
+    </div>
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+        <button id="run" type="button" >开始运行</button>
+        <button id="stop" type="button">结束运行</button>
+    </div>
+</div>
+
+
+
+<div data-role="page" id="setting">
+    <div data-role="header" data-position="fixed">
+        <h1>设置</h1>
+    </div>
+    <div data-role="content">
+        <form method="post" action="demoform.asp">
+            <div data-role="fieldcontain">
+                <div data-role="fieldcontain">
+                    <label for="unionid">京东联盟ID：</label>
+                    <a href="#modifyUnionid" style="text-decoration: none;font-weight: lighter;text-align: center;"><h3>12345678</h3></a>
+                    <!--<input type="text" name="fullname" id="unionid"> -->
+                </div>
+            </div>
+            <div data-role="fieldcontain">
+                <label for="points">发送速度:</label>
+                <input type="range" name="points" id="points" value="50" min="0" max="60" data-hightlight="true">
+            </div>
+            <div data-role="fieldcontain">
+                <label for="switch">开启自助查询:</label>
+                <select name="switch" id="switch" data-role="slider">
+                    <option value="on">On</option>
+                    <option value="off" selected>Off</option>
+                </select>
+            </div>
+        </form>
+    </div>
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#wxmng" data-icon="star" data-ajax="false">运行</a></li>
+                <li><a href="#setting" data-icon="gear" data-ajax="false">设置</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div data-role="page" id="forum">
+    <div data-role="header" data-position="fixed">
+        <h1>群资源（监控群）</h1>
+        <a href="main.html#wxmng" class="ui-btn" data-ajax="false">返回</a>
+    </div>
+    <img src="img/banner.png" width="100%"/>
+    <div data-role="content">
+        <div>
+            <div class="ui-grid-a">
+                <div class="ui-block-a">
+
+                    <a href="#" class="ui-btn ui-corner-all ui-shadow"><img src='img/myQR.jpg' height="100" width="100" /><br>京东全量资源群</br></a>
+                    <span>全类目产品信息资源。</span>
+                </div>
+
+                <div class="ui-block-b">
+                    <a href="#" class="ui-btn ui-corner-all ui-shadow"><img src='img/myQR.jpg' height="100" width="100" /><br>京东3C产品资源群</br></a>
+                    <span>小家电/手机/电脑/周边等。</span>
+                </div>
+
+                <div class="ui-block-b">
+                    <a href="#" class="ui-btn ui-corner-all ui-shadow"><img src='img/myQR.jpg' height="100" width="100" /><br>京东服饰饰品</br></a>
+                    <span>衣帽/鞋袜/日常生活等。</span>
+                </div>
+
+                <div class="ui-block-b">
+                    <a href="#" class="ui-btn ui-corner-all ui-shadow"><img src='img/myQR.jpg' height="100" width="100" /><br>京东食品资源</br></a>
+                    <span>零食/水果/烟酒等。</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
